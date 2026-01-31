@@ -6,7 +6,14 @@
     <title>NextMinds</title>
     <script type="module" crossorigin src="./assets/index-G9jnSHd1.js"></script>
     <style>
-      /* Custom hover effect for "See How It Works" button */
+      /* "See How It Works" button - Purple background by default, white on hover */
+      button[class*="border-2"][class*="border-white"] {
+        background-color: #7C3AED !important;
+        color: white !important;
+        border-color: #7C3AED !important;
+      }
+      
+      /* White background with purple text on hover */
       button[class*="border-2"][class*="border-white"]:hover {
         background-color: white !important;
         color: #7C3AED !important;
