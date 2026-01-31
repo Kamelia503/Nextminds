@@ -6,27 +6,10 @@
     <title>NextMinds</title>
     <script type="module" crossorigin src="./assets/index-G9jnSHd1.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-XzlQrLCo.css">
-    <style>
-      img[loading="lazy"] {
-        background-color: #f0f0f0;
-      }
-    </style>
   </head>
   <body>
     <div id="root"></div>
     <script>
-      // Add lazy loading to all images
-      document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-          const images = document.querySelectorAll('img');
-          images.forEach(img => {
-            if (!img.getAttribute('loading')) {
-              img.setAttribute('loading', 'lazy');
-            }
-          });
-        }, 100);
-      });
-      
       // Intercept the email form submission and forward to Formspree without redirect
       document.addEventListener('DOMContentLoaded', function() {
         // Wait a bit for React to render
