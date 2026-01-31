@@ -9,5 +9,33 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Hidden Formspree form for email collection -->
+    <form id="formspree-form" style="display: none;" action="https://formspree.io/f/xkobaqbg" method="POST">
+      <input type="email" name="email" />
+    </form>
+    <script>
+      // Intercept the email form submission and forward to Formspree
+      document.addEventListener('DOMContentLoaded', function() {
+        // Wait a bit for React to render
+        setTimeout(function() {
+          // Find the email input and form in the React component
+          const emailInput = document.querySelector('input[type="email"]');
+          const form = document.querySelector('form:not(#formspree-form)');
+          
+          if (form && emailInput) {
+            form.addEventListener('submit', function(e) {
+              const email = emailInput.value;
+              if (email) {
+                // Submit to Formspree
+                const formspreeForm = document.getElementById('formspree-form');
+                const formspreeEmail = formspreeForm.querySelector('input[name="email"]');
+                formspreeEmail.value = email;
+                formspreeForm.submit();
+              }
+            });
+          }
+        }, 1000);
+      });
+    </script>
   </body>
 </html>
