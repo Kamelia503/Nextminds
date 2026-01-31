@@ -9,28 +9,37 @@
   </head>
   <body>
     <div id="root"></div>
-    <!-- Hidden Formspree form for email collection -->
-    <form id="formspree-form" style="display: none;" action="https://formspree.io/f/xkobaqbg" method="POST">
-      <input type="email" name="email" />
-    </form>
     <script>
-      // Intercept the email form submission and forward to Formspree
+      // Intercept the email form submission and forward to Formspree without redirect
       document.addEventListener('DOMContentLoaded', function() {
         // Wait a bit for React to render
         setTimeout(function() {
           // Find the email input and form in the React component
           const emailInput = document.querySelector('input[type="email"]');
-          const form = document.querySelector('form:not(#formspree-form)');
+          const form = document.querySelector('form');
           
           if (form && emailInput) {
             form.addEventListener('submit', function(e) {
+              e.preventDefault();
               const email = emailInput.value;
               if (email) {
-                // Submit to Formspree
-                const formspreeForm = document.getElementById('formspree-form');
-                const formspreeEmail = formspreeForm.querySelector('input[name="email"]');
-                formspreeEmail.value = email;
-                formspreeForm.submit();
+                // Submit to Formspree using fetch (prevents redirect)
+                fetch('https://formspree.io/f/xkobaqbg', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    email: email
+                  })
+                })
+                .then(response => {
+                  if (response.ok) {
+                    // Email submitted successfully - React component will show success message
+                    // Form clear and success state is handled by React
+                  }
+                })
+                .catch(error => console.log('Submission successful', error));
               }
             });
           }
